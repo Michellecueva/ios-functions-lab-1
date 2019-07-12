@@ -8,15 +8,33 @@ Fork and clone this repo. On your fork, answer and commit the follow questions. 
 Complete the function so that it will print out total cost after tax. Make sure to **call the function** afterwards.
 
 ```swift
+
 let itemCost = 45.0
 let nyTax = 0.08775
 
-func totalWithTax() {
 
+func totalWithTax(x: Double, y:Double) {
+    let totalCost = x + y
+    print(totalCost)
 }
+
+totalWithTax(x: itemCost, y: nyTax)
+
 ```
 
 Then, modify the function you implemented to have a return type of `Int`, and use an external name that looks more readable. Function calls should look something like "total cost of the item after tax"
+``` swift 
+
+func totalWithTax(x: Double, y:Double)-> Int {
+let totalCost = x + y
+return Int(totalCost)
+}
+
+var total = totalWithTax(x: itemCost, y: nyTax)
+
+
+
+```
 
 ## Question 2
 
@@ -32,6 +50,18 @@ if todaysTemperature <= 40 {
 } else {
     print("Weather is moderate.")
 }
+
+
+func todaysTemp(x: Int) -> String {
+    if x <= 40 {
+        return "It's cold out."
+    } else if x >= 85 {
+        return "It's really warm."
+    } else {
+        return "Weather is moderate."
+    }
+}
+
 ```
 
 
@@ -47,6 +77,20 @@ Input: `min2(a:1, b:2)`
 
 Output: `1`
 
+```swift
+
+func min2(a: Int, b: Int) -> Int {
+    if a < b {
+        return a
+    } else {
+        return b
+    }
+}
+
+
+
+
+```
 
 ## Question 4
 
@@ -60,6 +104,14 @@ Input: `lastDigit(12345)`
 
 Output: `5`
 
+```
+func lastDigit(_ number: Int) -> Character {
+    let strInt = String(number)
+    let arrStr = Array(strInt)
+    return arrStr[arrStr.count-1]
+}
+
+```
 
 ## Question 5
 
@@ -79,12 +131,54 @@ Write a function takes in any number grade and returns a corresponding letter gr
 | 65 - 69 | D |
 | Below 65 | F |
 
+func findLetterGrade(x: Int) -> String {
+
+```swift
+
+switch x {
+    case 100:
+        return  "A+"
+    case 90...99:
+        return "A"
+    case 80...89:
+        return "B"
+    case 70...79:
+        return "C"
+    case 65...69:
+        return "D"
+    default:
+        return "F"
+    }
+}
+
+```
 
 ## Question 7
 
 Make a calculator function that takes in three parameters (two numbers and one operator) and returns the answer of the operation.
 
 Operator parameter: (+, -, x, /)
+
+``` swift 
+
+func calculator(x: Int, y:Int, op: Character) ->   Int {
+
+    if op == "+" {
+        return x + y
+    }
+    if op == "-" {
+        return x - y
+    }
+    if op == "x" {
+        return x * y
+    }
+    if op == "/" {
+        return x / y
+    }
+        return 0
+}
+
+```
 
 
 ## Question 8
@@ -98,16 +192,32 @@ let tipPercentage = 0.15
 //Write your code below
 
 let myFinalCost = totalWithTip() //Fill in the arguments
+
+func totalWithTip(x:Double, y:Double)-> Double {
+    let sum = x + (x * y)
+    return round(sum * 100) / 100
+}
+
+let myFinalCost = totalWithTip(x: Double(mealCost), y: tipPercentage)
 ```
 
 Write a function that will print out **total cost after tip and tax.**
 
 ```swift
+
 let taxPercentage = 0.09
 
 //Write your code below
 
 let myFinalCostWithTipAndTax = totalWithTipAndTax() //Fill in the arguments in function
+
+func totalWithTipAndTax(x: Double, y: Double) -> Double {
+    let sum = x + (x * y)
+    return round(sum * 100) / 100
+}
+
+let myFinalCostWithTipAndTax = totalWithTipAndTax(x:myFinalCost, y:taxPercentage)
+
 ```
 
 
@@ -119,6 +229,20 @@ Example:
 Input: `repeatPrint(message: "+", count: 10)`
 
 Output: `++++++++++`
+
+``` swift 
+
+func repeatPrint(message: String, count: Int) {
+    var repeatMessage = ""
+    for _ in 0..<count{
+        repeatMessage.append(message)
+    }
+    print(repeatMessage)
+}
+
+repeatPrint(message: "+", count: 10)
+
+```
 
 
 ## Question 10
@@ -133,6 +257,22 @@ Input: `first(3)`
 
 Output: `[1, 2, 3]`
 
+```swift
+
+func first(_ n: Int) -> [Int] {
+
+    var arr: [Int] = []
+
+    for i in 1...n {
+        arr.append(i)
+    }
+    return arr
+}
+
+
+
+
+```
 
 ## Question 11
 
@@ -153,6 +293,20 @@ Example:
 Input: `reverse([1, 2, 3])`
 
 Output: `[3, 2, 1]`
+
+``` swift
+
+func reverse(numbers: [Int]) -> [Int] {
+    var addNum: [Int] = []
+    for i in numbers {
+        addNum.insert(i, at: 0)
+    }
+    return addNum
+}
+
+
+
+```
 
 
 ## Question 13
