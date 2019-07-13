@@ -14,8 +14,8 @@ let nyTax = 0.08775
 
 
 func totalWithTax(x: Double, y:Double) {
-    let totalCost = x + y
-    print(totalCost)
+let totalCost = round((x + (x * y))*100)/100
+print(totalCost)
 }
 
 totalWithTax(x: itemCost, y: nyTax)
@@ -26,13 +26,11 @@ Then, modify the function you implemented to have a return type of `Int`, and us
 ``` swift 
 
 func totalWithTax(x: Double, y:Double)-> Int {
-let totalCost = x + y
-return Int(totalCost)
+    let totalCost = x + (x * y).rounded(.up)
+    return Int(totalCost)
 }
 
 var total = totalWithTax(x: itemCost, y: nyTax)
-
-
 
 ```
 
@@ -86,8 +84,6 @@ func min2(a: Int, b: Int) -> Int {
         return b
     }
 }
-
-
 
 
 ```
@@ -282,7 +278,23 @@ If the number if a multiple of 3, print `"Fizz"` instead of the number
 If the number is a multiple of 5, print `"Buzz"` instead of the number
 If the number is a multiple of 3 AND 5, print `"FizzBuzz"` instead of the number
 Your function should take in one parameter: x (the number to count up to)
+``` swift
 
+func printRange(x: Int) {
+    for num in 1...x {
+        if num % 15 == 0 {
+            print("FizzBuz")
+        } else if num % 5 == 0 {
+        print("Buzz")
+        } else if num % 3 == 0 {
+        print("Fizz")
+        } else {
+        print(num)
+        }
+    }
+}
+
+```
 
 ## Question 12
 
@@ -312,13 +324,50 @@ func reverse(numbers: [Int]) -> [Int] {
 ## Question 13
 
 Write a function that prints out the most frequently appearing Int in an array of Int.
+``` swift
 
+func mostFrequent(x: [Int]){
+
+    var count: [Int: Int] = [:]
+
+    let arrInt:[Int] = x
+
+    for i in arrInt {
+        count[i] = (count[i] ?? 0 ) + 1
+    }
+
+    var mostFrequent: Int = 0
+    var mostCount = 0
+
+    for (key, value) in count {
+        if value > mostCount {
+            mostCount = value
+            mostFrequent = key
+        }
+    }
+
+    print(mostFrequent)
+
+}
+
+```
 
 ## Question 14
 
 Write a function that sums all the even indices of an array of Ints.
+``` swift
 
+func sumsAllEven(array:[Int]) -> Int {
+    var sum = Int()
+    for i in array {
+        if i % 2 == 0 {
+            sum += i
+        }
+    }
+return sum
+}
 
+```
 ## Question 15
 
 Write a function that flips a dictionary.  All of the keys are now values and all of the values are now keys.
@@ -327,6 +376,19 @@ Example:
 Input: `[1: "hi", 5: "bye:]`
 
 Output: `["hi": 1, "bye": 5]`
+
+``` swift
+
+func flipADict(dict: [Int:String]) {
+    var newDict:[String: Int] = [:]
+    for (key, value) in dict {
+        newDict[value] = key
+        }
+    print(newDict)
+
+}
+
+```
 
 
 ## Question 16
@@ -370,6 +432,22 @@ Using your function, print how many characters are in myString:
 
 `let myString = "Swift is a new programming language for iOS, OS X, watchOS, and tvOS apps that builds on the best of C and Objective-C, without the constraints of C compatibility."`
 
+``` swift
+
+func numofCharactersinString(sent: String) -> Int {
+
+    let sentArray = sent.components(separatedBy: " ")
+    var allChars = [Character] ()
+
+    for sent in sentArray {
+        for char in sent {
+            allChars.append(char)
+        }
+    }
+    return allChars.count
+}
+
+```
 
 ## Question 21
 
@@ -518,12 +596,44 @@ Write your own `min()` and `max()` functions for an Array of Ints
 ## Question 35
 
 Given two arrays of Ints, write a function that tells you all the values they have in common.
+```swift
 
+func valuesInCommon(array1: [Int], array2: [Int]) -> Set<Int> {
+    let arr1Set = Set(array1)
+    let arr2Set = Set(array2)
+
+    let setIntersect = arr1Set.intersection(arr2Set)
+    return setIntersect
+}
+
+```
 
 ## Question 36
 
 Find the most-frequently appearing Array of Ints in an Array of Arrays of Ints.
+``` swift
 
+func mostFrequentArray(arr: [[Int]])-> [Int] {
+    var frequentArr = [Int]()
+    var frequentDict: [[Int]:Int] = [:]
+
+    for miniArray in arr {
+        frequentDict[miniArray] = (frequentDict[miniArray] ?? 0) + 1
+    }
+
+    var mostCount = 0
+
+    for (key,value) in frequentDict {
+        if value > mostCount {
+            mostCount = value
+            frequentArr = key
+        }
+    }
+
+    return frequentArr
+}
+
+```
 
 ## Question 37
 
@@ -534,3 +644,45 @@ Sample input:
 
 Sample output:
 `Uijt jt b uftu tusjoh. Bozuijoh dbo cf xsjuufo jo ifsf (fwfo Afcsbt boe afcsbt).`
+
+``` swift 
+
+func rotateAlphabetByOne(str: String) {
+
+var alphabet = [
+"a", "b", "c", "d", "e", "f", "g", "h",
+"i", "j", "k", "l", "m", "n", "o", "p",
+"q", "r", "s", "t", "u", "v", "w", "x",
+"y", "z",
+]
+
+var alphabetDict:[String: String] = [:]
+
+for (index,letter) in alphabet.enumerated() {
+alphabetDict[letter] = alphabet[(index + 1) % 26 ]
+}
+
+var newStr = ""
+
+for char in str {
+var lookUpChar = String(char)
+if char.isUppercase {
+lookUpChar = String(char).lowercased()
+}
+if let alphabetchar = alphabetDict[lookUpChar] {
+if char.isUppercase {
+newStr.append(alphabetchar.uppercased())
+} else {
+newStr.append(alphabetchar)
+}
+} else {
+newStr.append(char)
+}
+}
+
+print(newStr)
+
+}
+
+
+```
